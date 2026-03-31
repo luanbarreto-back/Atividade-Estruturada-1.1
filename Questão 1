@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Notebook {
+    char marca[50];
+    char modelo[50];
+    int ram; // Quantidade de memória RAM em GB
+    float preco; // Preço em reais
+};
+
+int main() {
+    int n; // Número de notebooks
+    printf("Digite o número de notebooks: ");
+    scanf("%d", &n);
+
+    struct Notebook notebooks[n];
+    
+    for (int i = 0; i < n; i++) {
+        printf("\nDigite as informações do notebook %d:\n", i + 1);
+        
+        printf("Marca: ");
+        getchar(); // Limpar o buffer de entrada
+        fgets(notebooks[i].marca, 50, stdin);
+        notebooks[i].marca[strcspn(notebooks[i].marca, "\n")] = 0; // Remover o '\n' da string
+
+        printf("Modelo: ");
+        fgets(notebooks[i].modelo, 50, stdin);
+        notebooks[i].modelo[strcspn(notebooks[i].modelo, "\n")] = 0; // Remover o '\n' da string
+
+        printf("Quantidade de RAM (em GB): ");
+        scanf("%d", &notebooks[i].ram);
+
+        printf("Preço (em reais): ");
+        scanf("%f", &notebooks[i].preco);
+    }
+
+    int idx_maior_ram = 0;
+    for (int i = 1; i < n; i++) {
+        if (notebooks[i].ram > notebooks[idx_maior_ram].ram) {
+            idx_maior_ram = i;
+        }
+    }
+
+
+    printf("\nO notebook com a maior quantidade de RAM é:\n");
+    printf("Modelo: %s\n", notebooks[idx_maior_ram].modelo);
+    printf("Preço: R$ %.2f\n", notebooks[idx_maior_ram].preco);
+
+    return 0;
+}
