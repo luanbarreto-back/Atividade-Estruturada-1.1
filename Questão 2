@@ -1,1 +1,44 @@
+#include <stdio.h>
+#include <string.h>
 
+typedef struct {
+    char especie[50];
+    int diasSemAgua;
+    char statusIrrigacao; // 'N' = necessita rega, 'O' = ok
+} Planta;
+
+void atualizarIrrigacaoValor(Planta p) {
+    printf("Antes da atualização: %s - Dias sem água: %d - Status: %c\n",
+           p.especie, p.diasSemAgua, p.statusIrrigacao);
+
+    if (p.diasSemAgua >= 3) {
+        p.statusIrrigacao = 'O';
+        p.diasSemAgua = 0;
+    }
+
+    printf("Depois da atualização: %s - Dias sem água: %d - Status: %c\n\n",
+           p.especie, p.diasSemAgua, p.statusIrrigacao);
+}
+
+int main() {
+    Planta planta1;
+    strcpy(planta1.especie, "Rosa");
+    planta1.diasSemAgua = 1;
+    planta1.statusIrrigacao = 'N';
+
+    Planta planta2;
+    strcpy(planta2.especie, "Orquídea");
+    planta2.diasSemAgua = 5;
+    planta2.statusIrrigacao = 'N';
+
+    atualizarIrrigacaoValor(planta1);
+    atualizarIrrigacaoValor(planta2);
+
+    printf("Valores no main após a função:\n");
+    printf("%s - Dias sem água: %d - Status: %c\n",
+           planta1.especie, planta1.diasSemAgua, planta1.statusIrrigacao);
+    printf("%s - Dias sem água: %d - Status: %c\n",
+           planta2.especie, planta2.diasSemAgua, planta2.statusIrrigacao);
+
+    return 0;
+}
