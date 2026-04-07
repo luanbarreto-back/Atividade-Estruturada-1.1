@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char nome[50];
+    int tempoEstimado;
+    int statusConclusao;
+} Projeto;
+
+void atualizarProjetos(Projeto *projetos, int tamanho, int tempoLimite) {
+    for (int i = 0; i < tamanho; i++) {
+        // Usando ponteiro para acessar os elementos
+        if ((projetos + i)->tempoEstimado <= tempoLimite) {
+            (projetos + i)->statusConclusao = 1;
+        }
+    }
+}
+
+void imprimirConcluidos(Projeto *projetos, int tamanho) {
+    printf("Projetos concluídos dentro do tempo limite:\n");
+    for (int i = 0; i < tamanho; i++) {
+        if ((projetos + i)->statusConclusao == 1) {
+            printf("- %s\n", (projetos + i)->nome);
+        }
+    }
+}
+
+int main() {
+    Projeto projetos[5];
+
+    strcpy(projetos[0].nome, "Peça A");
+    projetos[0].tempoEstimado = 120;
+    projetos[0].statusConclusao = 0;
+
+    strcpy(projetos[1].nome, "Peça B");
+    projetos[1].tempoEstimado = 60;
+    projetos[1].statusConclusao = 0;
+
+    strcpy(projetos[2].nome, "Peça C");
+    projetos[2].tempoEstimado = 200;
+    projetos[2].statusConclusao = 0;
+
+    strcpy(projetos[3].nome, "Peça D");
+    projetos[3].tempoEstimado = 30;
+    projetos[3].statusConclusao = 0;
+
+    strcpy(projetos[4].nome, "Peça E");
+    projetos[4].tempoEstimado = 90;
+    projetos[4].statusConclusao = 0;
+
+    int tempoLimite = 100; // limite máximo de tempo para finalizar
+
+    atualizarProjetos(projetos, 5, tempoLimite);
+
+    imprimirConcluidos(projetos, 5);
+
+    return 0;
+}
